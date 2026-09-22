@@ -1,0 +1,143 @@
+/* DheVeni — dheveni.com
+   One stylesheet for the landing page, the privacy policy and the terms. */
+
+/* Thaana, from MV Aammu FK. The unicode-range means the browser only fetches
+   it when there is actually Thaana on the page, and Latin text falls straight
+   through to Figtree — so "MV Aammu" can sit at the front of every font stack
+   and Dhivehi picks it up wherever it appears. */
+@font-face{
+  font-family:"MV Aammu";
+  src:url("fonts/mv-aammu.woff2") format("woff2");
+  font-weight:400 700;
+  font-display:swap;
+  unicode-range:U+0780-07BF, U+060C, U+061F, U+0640;
+}
+
+:root{
+  --deep:#07253A;
+  --mid:#0E4A63;
+  --lagoon:#3FB9C4;
+  --sand:#F6EFE4;
+  --sand-2:#EADFCC;
+  --coral:#D61F69;
+  --ink:#07253A;
+  --ink-2:#3C6379;
+  --surface:#FFFDF9;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sand:#061A28; --sand-2:#0A2A3C; --surface:#0A2333;
+    --ink:#EAF4F7; --ink-2:#9FC2D1; --lagoon:#5FD3DD; --coral:#FF5C92;
+  }
+}
+:root[data-theme="dark"]{
+  --sand:#061A28; --sand-2:#0A2A3C; --surface:#0A2333;
+  --ink:#EAF4F7; --ink-2:#9FC2D1; --lagoon:#5FD3DD; --coral:#FF5C92;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--sand); color:var(--ink);
+  font:400 17px/1.7 "MV Aammu","Figtree",ui-sans-serif,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px; margin:0 auto; padding-inline:22px}
+h1,h2,h3,.display{font-family:"MV Aammu","Bricolage Grotesque","Figtree",system-ui,sans-serif; letter-spacing:-.03em}
+a:focus-visible,button:focus-visible{outline:2px solid var(--lagoon); outline-offset:3px; border-radius:6px}
+
+/* Dhivehi runs right to left and wants more line height than Latin. */
+.dv{direction:rtl; text-align:right; line-height:1.9; font-family:"MV Aammu",serif}
+
+/* ---------- hero ---------- */
+.hero{position:relative; overflow:hidden; color:#EAF7F9;
+  background:
+    radial-gradient(120% 80% at 18% 8%, rgba(63,185,196,.55) 0%, rgba(63,185,196,0) 55%),
+    radial-gradient(90% 70% at 88% 22%, rgba(214,31,105,.30) 0%, rgba(214,31,105,0) 60%),
+    linear-gradient(168deg,#0E4A63 0%,#07253A 62%,#051A28 100%);
+}
+.hero::after{content:""; position:absolute; left:-10%; right:-10%; bottom:-140px; height:280px;
+  background:radial-gradient(60% 100% at 50% 0%, rgba(246,239,228,.95) 0%, rgba(246,239,228,0) 70%);
+  pointer-events:none}
+:root:not([data-theme="light"]) .hero::after{background:radial-gradient(60% 100% at 50% 0%, rgba(6,26,40,.95) 0%, rgba(6,26,40,0) 70%)}
+:root[data-theme="dark"] .hero::after{background:radial-gradient(60% 100% at 50% 0%, rgba(6,26,40,.95) 0%, rgba(6,26,40,0) 70%)}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .hero::after{background:radial-gradient(60% 100% at 50% 0%, rgba(6,26,40,.95) 0%, rgba(6,26,40,0) 70%)}
+}
+
+.nav{display:flex; align-items:center; justify-content:space-between; gap:18px; padding-block:22px; flex-wrap:wrap; position:relative; z-index:2}
+.brand{display:flex; align-items:center; gap:11px; font-weight:700; font-size:21px; color:#fff; letter-spacing:-.02em;
+  font-family:"Bricolage Grotesque",sans-serif; text-decoration:none}
+.navlinks{display:flex; gap:24px; flex-wrap:wrap}
+.nav a:not(.brand){color:#BFE3EA; text-decoration:none; font-size:15px; font-weight:500}
+.nav a:not(.brand):hover{color:#fff}
+
+.hero-body{position:relative; z-index:2; padding-block:76px 132px; max-width:760px}
+.kicker{display:inline-flex; align-items:center; gap:9px; background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2); color:#CDEDF2; padding:7px 15px; border-radius:100px; font-size:13.5px; font-weight:500}
+.hero h1{font-size:clamp(44px,7.2vw,86px); line-height:.98; font-weight:800; margin:24px 0 0; color:#fff; text-wrap:balance}
+.hero h1 .soft{color:var(--lagoon)}
+.lede{font-size:20px; line-height:1.6; color:#C6E2EA; margin-top:24px; max-width:32em}
+.cta{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap}
+.b{display:inline-flex; align-items:center; gap:9px; text-decoration:none; font-weight:600; font-size:16px;
+  padding:15px 26px; border-radius:100px; transition:transform .16s ease}
+.b:hover{transform:translateY(-2px)}
+.b-1{background:var(--coral); color:#fff}
+.b-2{background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.28)}
+.b-3{background:var(--surface); color:var(--ink); border:1px solid var(--sand-2)}
+
+/* ---------- thaana band ---------- */
+.thaana-band{background:var(--sand); padding-block:54px 0; text-align:center}
+.thaana{direction:rtl; font-size:clamp(28px,4.8vw,46px); line-height:1.85; color:var(--ink);
+  font-family:"MV Aammu",serif; margin:0}
+.thaana-sub{color:var(--ink-2); margin-top:16px; font-size:16px}
+
+/* ---------- sections ---------- */
+section{padding-block:68px}
+.eyebrow{font-size:13px; font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--coral)}
+h2{font-size:clamp(30px,4.2vw,44px); font-weight:700; margin:12px 0 0; line-height:1.1; text-wrap:balance}
+.sub{color:var(--ink-2); font-size:18px; margin-top:14px; max-width:46ch}
+
+.isles{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; margin-top:44px}
+.isle{background:var(--surface); border:1px solid var(--sand-2); border-radius:26px; padding:30px 26px 32px}
+.isle .dot{width:40px; height:40px; border-radius:14px; display:grid; place-items:center; margin-bottom:18px;
+  background:linear-gradient(150deg,var(--lagoon),var(--mid))}
+.isle h3{font-size:20px; font-weight:700; margin:0 0 9px}
+.isle p{margin:0; color:var(--ink-2); font-size:16px; line-height:1.62}
+
+.feature{background:linear-gradient(140deg,var(--mid),var(--deep)); color:#EAF7F9; border-radius:32px; padding:48px 40px;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:38px; align-items:center}
+.feature h2{color:#fff; margin-top:8px}
+.feature p{color:#BEDDE6; font-size:17px}
+.chatline{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); border-radius:18px;
+  padding:16px 18px; font-size:15.5px; color:#DCF0F5}
+.chatline + .chatline{margin-top:10px}
+.chatline.g{border-color:rgba(63,185,196,.5); color:#BFEFF4}
+.chatline .who{display:block; font-size:12px; letter-spacing:.09em; text-transform:uppercase; opacity:.75; margin-bottom:5px}
+
+.facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:26px; margin-top:44px}
+.fact .big{font-family:"MV Aammu","Bricolage Grotesque",sans-serif; font-size:40px; font-weight:800; line-height:1; color:var(--coral)}
+.fact p{margin:10px 0 0; color:var(--ink-2); font-size:15.5px}
+
+/* ---------- legal pages ---------- */
+.doc{max-width:760px; margin:0 auto; padding-block:56px 80px}
+.doc h1{font-size:clamp(34px,5vw,50px); font-weight:800; margin:14px 0 6px; line-height:1.08}
+.doc .meta{color:var(--ink-2); margin:0 0 34px}
+.doc h2{font-size:23px; margin:40px 0 10px; font-weight:700}
+.doc p, .doc li{color:var(--ink); font-size:16.5px}
+.doc ul{padding-left:22px}
+.doc table{width:100%; border-collapse:collapse; margin:16px 0; font-size:15.5px; display:block; overflow-x:auto}
+.doc th,.doc td{text-align:left; padding:11px 13px; border-bottom:1px solid var(--sand-2); vertical-align:top}
+.doc th{background:var(--surface); font-weight:600}
+.doc a{color:var(--coral)}
+.doc .box{background:var(--surface); border:1px solid var(--sand-2); border-radius:18px; padding:18px 20px; margin:18px 0}
+.backlink{display:inline-flex; align-items:center; gap:8px; color:var(--ink-2); text-decoration:none; font-size:15px; font-weight:500}
+.backlink:hover{color:var(--coral)}
+
+/* ---------- footer ---------- */
+footer{background:var(--deep); color:#9FC2D1; padding-block:44px; margin-top:64px}
+footer .row{display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; align-items:center}
+footer a{color:#BFE3EA; text-decoration:none; font-size:15px}
+footer a:hover{color:#fff}
+.flinks{display:flex; gap:22px; flex-wrap:wrap}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
