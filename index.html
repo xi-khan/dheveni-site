@@ -1,64 +1,203 @@
-<title>DheVeni</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DheVeni — Marriage, through people who know you</title>
+<meta name="description" content="A Maldivian marriage app. A friend vouches for you, and that vouch is the only reason anyone can see you at all. ID verified, guardians welcome, Dhivehi and English.">
+<link rel="canonical" href="https://dheveni.com/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-title" content="DheVeni">
+
+<!-- icons -->
+<link rel="icon" href="/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- sharing -->
+<meta property="og:site_name" content="DheVeni">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="dv_MV">
+<meta property="og:url" content="https://dheveni.com/">
+<meta property="og:title" content="DheVeni — Marriage, through people who know you">
+<meta property="og:description" content="A Maldivian marriage app. A friend vouches for you, and that vouch is the only reason anyone can see you at all. ID verified, guardians welcome, Dhivehi and English.">
+<meta property="og:image" content="https://dheveni.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DheVeni — marriage, through people who know you.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DheVeni — Marriage, through people who know you">
+<meta name="twitter:description" content="A Maldivian marriage app. A friend vouches for you, and that vouch is the only reason anyone can see you at all. ID verified, guardians welcome, Dhivehi and English.">
+<meta name="twitter:image" content="https://dheveni.com/og.png">
+
+<!-- type -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="site.css">
+</head>
+<body>
 
-<div class="hero">
-  <div class="wrap">
-    <div class="nav">
-      <a class="brand" href="index.html">
-        <svg width="32" height="32" viewBox="0 0 1024 1024" aria-hidden="true" style="border-radius:10px">
-          <rect width="1024" height="1024" fill="#D61F69"/>
-          <path d="M732.5 291.5 A312 312 0 1 1 512 200" fill="none" stroke="#fff" stroke-width="56" stroke-linecap="round"/>
-          <path d="M496 360 a152 152 0 0 0 0 304 Z" fill="#fff"/>
-          <path d="M528 360 a152 152 0 0 1 0 304 Z" fill="#07253A"/>
-        </svg>
-        DheVeni
-      </a>
-      <div class="navlinks">
-        <a href="#how">How it works</a>
-        <a href="#guardians">Guardians</a>
-        <a href="#language">Dhivehi</a>
-        <a href="#get">Get the app</a>
-      </div>
-    </div>
+<header class="nav" id="nav">
+  <div class="wrap row">
+    <a class="brand" href="/">
+      <img class="mark" src="/icons/favicon.svg" width="30" height="30" alt="" decoding="async">
+      DheVeni
+    </a>
+    <nav class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#guardians">Guardians</a>
+      <a href="#language">Dhivehi</a>
+    </nav>
+    <a class="b b-1 nav-cta" href="#get">Get the app</a>
+  </div>
+</header>
 
-    <div class="hero-body">
+<main>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="rise">
       <span class="kicker">Built in the Maldives, for the Maldives</span>
-      <h1>Marriage, through<br>people who <span class="soft">know you.</span></h1>
+      <h1>Marriage, through people who <em>know you.</em></h1>
       <p class="lede">Not a dating app with the word marriage on it. A friend vouches for you, and that vouch is the only reason anyone can see you at all.</p>
       <div class="cta">
-        <a class="b b-1" href="#get">Download the app</a>
+        <a class="b b-1 store-b" href="#get" data-store="primary">
+          <span data-store-sub class="store-sub">Coming soon</span>
+          <span data-store-label>Get the app</span>
+        </a>
         <a class="b b-2" href="#how">See how it works</a>
+      </div>
+      <p class="note">Free to find people, vouch, match and message. 18 and over, one ID per person.</p>
+    </div>
+
+    <!-- The phone. Drawn, not photographed, so it stays in sync with the app's
+         own tokens and weighs nothing. Screens cycle every few seconds. -->
+    <div class="stage rise">
+      <div class="phone" role="img" aria-label="DheVeni running on a phone: a list of people nearby, a chat with a guardian in it, and the wingman.">
+        <div class="screen">
+          <div class="notch"></div>
+          <div class="status"><span>9:41</span><span class="dots"><i></i><i></i><i></i></span></div>
+
+          <div class="views">
+            <!-- 1 · Discover -->
+            <div class="view on" data-view>
+              <div class="ph-h">
+                <b>Near you</b>
+                <span class="ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1A1433" stroke-width="2.2" stroke-linecap="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg></span>
+              </div>
+              <div class="ph-chips">
+                <span class="chip on">25 km</span>
+                <span class="chip">24–32</span>
+              </div>
+              <div class="pcard" style="background:var(--pink-tint)">
+                <div class="thumb" style="background:#fff; color:var(--pink-deep)">SA</div>
+                <div class="bd">
+                  <div class="nm"><b>Shaheema, 27</b><span>3 km</span></div>
+                  <p>Grade 3 teacher. Wants a home with the Qur’an in it and children before thirty.</p>
+                  <span class="pill">✓ 4 vouches</span>
+                </div>
+              </div>
+              <div class="pcard" style="background:var(--blue-tint)">
+                <div class="thumb" style="background:#fff; color:var(--blue-deep)">AI</div>
+                <div class="bd">
+                  <div class="nm"><b>Aishath, 25</b><span>8 km</span></div>
+                  <p>Nurse at the regional hospital. Would move islands for the right person.</p>
+                  <span class="pill">✓ 2 vouches</span>
+                </div>
+              </div>
+              <div class="pcard" style="background:var(--green-tint)">
+                <div class="thumb" style="background:#fff; color:var(--green-deep)">FA</div>
+                <div class="bd">
+                  <div class="nm"><b>Fathimath, 29</b><span>11 km</span></div>
+                  <p>Runs a guesthouse with her brother.</p>
+                  <span class="pill">✓ 6 vouches</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2 · Chat with a guardian -->
+            <div class="view" data-view>
+              <div class="ph-bar">
+                <span class="ico" style="width:30px;height:30px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A1433" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>
+                <span class="av" style="background:var(--pink-tint); color:var(--pink-deep)">SA</span>
+                <b>Shaheema</b>
+              </div>
+              <div class="guard">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1E3FB8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Aminath is reading along as guardian
+              </div>
+              <div class="bub them">Assalaamu alaikum. I work with boats here on Fuvahmulah.</div>
+              <div class="bub gd"><span class="who">Aminath · guardian</span>Wa alaikum assalaam. I’m Shaheema’s aunt.</div>
+              <div class="bub me">I teach grade 3 here. Do you want children soon after marriage?</div>
+              <div class="bub them">In shaa Allah, yes. My family is close by.</div>
+              <div class="composer">
+                <span>Message…</span>
+                <span class="snd"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/></svg></span>
+              </div>
+            </div>
+
+            <!-- 3 · Wingman -->
+            <div class="view" data-view>
+              <div class="ph-h"><b>Wingman</b></div>
+              <div class="wing">
+                <span class="tag">✦ Your side only</span>
+                <div class="bub them" style="margin-inline:0; max-width:92%">You’ve both said children matter. Neither of you has said when. Ask her.</div>
+                <div class="bub me" style="max-width:86%">Is that too direct for a second conversation?</div>
+                <div class="bub them" style="margin-inline:0; max-width:92%">It’s the reason you’re both here. Asking in week one is kinder than finding out in month six.</div>
+                <div class="bub them dv" style="margin-inline:0; max-width:92%">ކާކުތޯ ތިބާއަށް އެންމެ ރަނގަޅީ؟</div>
+              </div>
+              <div class="composer">
+                <span>Ask your wingman…</span>
+                <span class="snd"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/></svg></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tabs">
+            <div class="tab on"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.9 6.4-6.4 2.9 2.9-6.4z"/></svg>Discover</div>
+            <div class="tab"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Intros</div>
+            <div class="tab"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>Circle</div>
+            <div class="tab"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>Me</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="thaana-band">
-  <div class="wrap">
+<div class="band">
+  <div class="wrap rise">
     <p class="thaana">ދަންނަ މީހުންގެ ތެރެއިން ކައިވެންޏަށް</p>
-    <p class="thaana-sub">Write in Thaana and it answers in Thaana. Write in English and it answers in English.</p>
+    <p class="sub">Write in Thaana and it answers in Thaana. Write in English and it answers in English.</p>
   </div>
 </div>
 
 <div class="wrap">
+
   <section id="how">
-    <div class="eyebrow">How it works</div>
-    <h2>Three things happen before anyone sees you</h2>
-    <p class="sub">In that order, every time, for everybody. There is no way to skip one or buy past one.</p>
-    <div class="isles">
-      <div class="isle">
-        <div class="dot"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+    <div class="rise">
+      <div class="eyebrow">How it works</div>
+      <h2>Three things happen before anyone sees you</h2>
+      <p class="sub">In that order, every time, for everybody. There is no way to skip one or buy past one.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile t-pink rise">
+        <div class="dot"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#A3134F" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
         <h3>Your ID is checked</h3>
         <p>Photograph your card. We read your name, birth date and sex, then delete the image within seconds. A one-way code keeps the same card from opening two accounts.</p>
       </div>
-      <div class="isle">
-        <div class="dot"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="tile t-blue rise">
+        <div class="dot"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#1E3FB8" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <h3>You talk, we listen</h3>
         <p>Your profile comes out of a conversation about faith, family, children and money. Not a form with tick boxes. You read it and approve it before anyone else does.</p>
       </div>
-      <div class="isle">
-        <div class="dot"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 11 2 2 4-4"/></svg></div>
+      <div class="tile t-green rise">
+        <div class="dot"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#066B47" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 11 2 2 4-4"/></svg></div>
         <h3>Someone vouches</h3>
         <p>A person who actually knows you says so. Until they do, nobody can find you. After they do, you are visible two steps out and no further.</p>
       </div>
@@ -66,62 +205,191 @@
   </section>
 
   <section id="guardians">
-    <div class="feature">
+    <div class="split rise">
       <div>
-        <div class="eyebrow" style="color:var(--lagoon)">Guardians</div>
+        <div class="eyebrow">Guardians</div>
         <h2>Your family can be in the room</h2>
         <p>Add a guardian to any conversation and they can read it and speak in it, in their own colour, so nobody is ever unsure who is talking. Either side can add one, and either side can remove theirs.</p>
       </div>
-      <div>
-        <div class="chatline"><span class="who">Yusuf</span>Assalaamu alaikum. I work with boats here on Fuvahmulah.</div>
-        <div class="chatline g"><span class="who">Aminath · guardian</span>Wa alaikum assalaam. I am Shaheema's aunt, I will be reading along.</div>
-        <div class="chatline"><span class="who">Shaheema</span>I teach grade 3 here. Do you want children soon after marriage?</div>
+      <div class="demo">
+        <div class="bub them" style="max-width:96%"><span class="who">Yusuf</span>Assalaamu alaikum. I work with boats here on Fuvahmulah.</div>
+        <div class="bub gd" style="max-width:96%"><span class="who">Aminath · guardian</span>Wa alaikum assalaam. I am Shaheema’s aunt, I will be reading along.</div>
+        <div class="bub me" style="max-width:96%"><span class="who">Shaheema</span>I teach grade 3 here. Do you want children soon after marriage?</div>
       </div>
     </div>
   </section>
 
   <section id="language">
-    <div class="feature" style="background:var(--surface); color:var(--ink); border:1px solid var(--sand-2)">
+    <div class="split rise" style="background:var(--lilac-tint)">
       <div>
-        <div class="eyebrow">Dhivehi and English</div>
-        <h2 style="color:var(--ink)">It speaks the way you do</h2>
-        <p style="color:var(--ink-2)">Write in Thaana and everything answers in Thaana, right to left, the way it should read. Write in English and it answers in English. Switch mid-sentence if that is how you talk.</p>
+        <div class="eyebrow" style="color:var(--lilac-deep)">Dhivehi and English</div>
+        <h2>It speaks the way you do</h2>
+        <p style="color:var(--ink); opacity:.75">Write in Thaana and everything answers in Thaana, right to left, the way it should read. Write in English and it answers in English. Switch mid-sentence if that is how you talk.</p>
       </div>
-      <div>
-        <p class="dv" style="font-size:clamp(20px,3vw,27px); margin:0; color:var(--ink)">އަހަންނަށް ރަނގަޅު މީހަކު ހުށަހަޅަދީބަލަ</p>
-        <p class="dv" style="font-size:clamp(20px,3vw,27px); margin:14px 0 0; color:var(--ink-2)">ކާކުތޯ ތިބާއަށް އެންމެ ރަނގަޅީ؟</p>
+      <div class="demo">
+        <p class="dv" style="font-size:clamp(19px,2.6vw,25px); margin:6px 4px 14px">އަހަންނަށް ރަނގަޅު މީހަކު ހުށަހަޅަދީބަލަ</p>
+        <p class="dv" style="font-size:clamp(19px,2.6vw,25px); margin:0 4px 6px; color:var(--muted)">ކާކުތޯ ތިބާއަށް އެންމެ ރަނގަޅީ؟</p>
       </div>
     </div>
   </section>
 
   <section>
-    <div class="eyebrow">Also true</div>
-    <h2>The things that usually go wrong, handled</h2>
+    <div class="rise">
+      <div class="eyebrow">Also true</div>
+      <h2>The things that usually go wrong, handled</h2>
+    </div>
     <div class="facts">
-      <div class="fact"><div class="big">Awrah</div><p>Every photo is checked against modesty rules before anyone sees it, not a generic filter. Sharing is off until you turn it on.</p></div>
-      <div class="fact"><div class="big">No relatives</div><p>Family you cannot marry are hidden from each other for good, the moment either of you says so.</p></div>
-      <div class="fact"><div class="big">Ask</div><p>Does she want children soon. Would he move islands. Ask, and their side answers within the limits they set.</p></div>
-      <div class="fact"><div class="big">Free</div><p>Finding people, vouching, matching and messaging never cost anything.</p></div>
+      <div class="fact rise"><b>Awrah</b><p>Every photo is checked against modesty rules before anyone sees it, not a generic filter. Sharing is off until you turn it on.</p></div>
+      <div class="fact rise"><b>No relatives</b><p>Family you cannot marry are hidden from each other for good, the moment either of you says so.</p></div>
+      <div class="fact rise"><b>Ask</b><p>Does she want children soon. Would he move islands. Ask, and their side answers within the limits they set.</p></div>
+      <div class="fact rise"><b>Free</b><p>Finding people, vouching, matching and messaging never cost anything.</p></div>
     </div>
   </section>
 
-  <section id="get" style="text-align:center; padding-bottom:24px">
-    <h2>Ready when you are</h2>
-    <p class="sub" style="margin:14px auto 0">18 and over. One ID, one account. Maldives only, for now.</p>
-    <div class="cta" style="justify-content:center">
-      <a class="b b-1" href="#">Download on the App Store</a>
-      <a class="b b-3" href="#">Get it on Google Play</a>
+  <section id="get">
+    <div class="get rise">
+      <h2>Ready when you are</h2>
+      <p class="sub">18 and over. One ID, one account. Maldives only, for now.</p>
+      <div class="cta">
+        <a class="b b-1 store-b" href="#" data-store="ios">
+          <span data-store-sub class="store-sub">Coming soon on the</span>
+          <span data-store-label>App Store</span>
+        </a>
+        <a class="b b-2 store-b" href="#" data-store="android">
+          <span data-store-sub class="store-sub">Coming soon on</span>
+          <span data-store-label>Google Play</span>
+        </a>
+      </div>
     </div>
   </section>
+
 </div>
+</main>
 
 <footer>
   <div class="wrap row">
     <div>DheVeni · Operated by Hassan Zihan, Maldives</div>
     <div class="flinks">
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
       <a href="mailto:zihan@qvian.com">Contact</a>
     </div>
   </div>
 </footer>
+
+<script>
+/* ── Store links ───────────────────────────────────────────────────────
+   Fill these two in when the listings go live. Everything else — which
+   button shows, what it says, where it points — follows from them. Leave
+   one empty and that store stays a "coming soon" label that does not
+   navigate, so the page never ships a dead link. */
+const STORE = {
+  ios:     '',   // e.g. https://apps.apple.com/mv/app/dheveni/id0000000000
+  android: '',   // e.g. https://play.google.com/store/apps/details?id=com.dheveni.app
+};
+
+(function () {
+  const ua = navigator.userAgent || '';
+  // iPadOS 13+ reports itself as a Mac, so the touch check is what catches it.
+  const isIOS = /iPhone|iPad|iPod/.test(ua) ||
+                (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  const isAndroid = /Android/.test(ua);
+  const os = isIOS ? 'ios' : isAndroid ? 'android' : null;
+
+  const copy = {
+    ios:     { live: ['Download on the', 'App Store'],  soon: ['Coming soon on the', 'App Store'] },
+    android: { live: ['Get it on', 'Google Play'],      soon: ['Coming soon on', 'Google Play'] },
+  };
+
+  document.querySelectorAll('[data-store]').forEach((el) => {
+    // The hero button is whichever store this device actually uses. On a
+    // desktop it stays an anchor down to the pair at the bottom.
+    const kind = el.dataset.store === 'primary' ? os : el.dataset.store;
+
+    if (el.dataset.store === 'primary') {
+      if (!kind) return;                       // desktop: leave "Get the app"
+      el.href = STORE[kind] || '#get';
+    } else if (os && kind !== os) {
+      el.setAttribute('data-hide', '');        // phone: show only its own store
+      return;
+    } else {
+      el.href = STORE[kind] || '#';
+    }
+
+    const live = !!STORE[kind];
+    const [sub, label] = copy[kind][live ? 'live' : 'soon'];
+    el.querySelector('[data-store-sub]').textContent = sub;
+    el.querySelector('[data-store-label]').textContent = label;
+
+    if (!live) {
+      el.setAttribute('aria-disabled', 'true');
+      el.addEventListener('click', (e) => { if (el.getAttribute('href') === '#') e.preventDefault(); });
+    }
+  });
+})();
+
+/* ── Phone: cycle the screens ─────────────────────────────────────────── */
+(function () {
+  const views = [...document.querySelectorAll('[data-view]')];
+  if (views.length < 2 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let i = 0;
+  setInterval(() => {
+    views[i].classList.remove('on');
+    i = (i + 1) % views.length;
+    views[i].classList.add('on');
+  }, 3800);
+})();
+
+/* ── Reveal on scroll, and the nav hairline ───────────────────────────── */
+(function () {
+  const io = new IntersectionObserver((rows) => {
+    rows.forEach((r) => { if (r.isIntersecting) { r.target.classList.add('in'); io.unobserve(r.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+  document.querySelectorAll('.rise').forEach((el, n) => {
+    el.style.transitionDelay = (n % 4) * 70 + 'ms';
+    io.observe(el);
+  });
+
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('stuck', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://dheveni.com/#website",
+      "url": "https://dheveni.com/",
+      "name": "DheVeni",
+      "inLanguage": ["en", "dv"],
+      "publisher": { "@id": "https://dheveni.com/#publisher" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://dheveni.com/#publisher",
+      "name": "DheVeni",
+      "url": "https://dheveni.com/",
+      "logo": "https://dheveni.com/icons/icon-512.png",
+      "email": "zihan@qvian.com",
+      "areaServed": { "@type": "Country", "name": "Maldives" }
+    },
+    {
+      "@type": "MobileApplication",
+      "name": "DheVeni",
+      "applicationCategory": "SocialNetworkingApplication",
+      "operatingSystem": "iOS, Android",
+      "inLanguage": ["en", "dv"],
+      "description": "A Maldivian marriage app. Your ID is verified, your profile comes out of a conversation, and a friend vouches for you before anyone can find you. Guardians can sit in on chats.",
+      "url": "https://dheveni.com/",
+      "image": "https://dheveni.com/og.png",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+  ]
+}
+</script>
+</body>
+</html>
