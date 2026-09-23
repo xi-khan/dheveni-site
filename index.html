@@ -321,9 +321,11 @@ const STORE = {
     el.querySelector('[data-store-sub]').textContent = sub;
     el.querySelector('[data-store-label]').textContent = label;
 
-    if (!live) {
+    // Only the pair at the bottom is truly inert while a URL is missing. The
+    // hero button still scrolls to that section, so it is not disabled.
+    if (!live && el.getAttribute('href') === '#') {
       el.setAttribute('aria-disabled', 'true');
-      el.addEventListener('click', (e) => { if (el.getAttribute('href') === '#') e.preventDefault(); });
+      el.addEventListener('click', (e) => e.preventDefault());
     }
   });
 })();
