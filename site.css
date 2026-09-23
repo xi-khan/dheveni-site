@@ -102,10 +102,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--pink); outline-offs
 .chip.on{background:var(--pink); border-color:var(--pink); color:#fff}
 
 /* ---------- hero ---------- */
-.hero{position:relative; padding-block:56px 72px; overflow:hidden}
+.hero{position:relative; padding-block:56px 72px}
 .hero::before{
   /* simple gradient wash in the app's tints — no dark panel, no hard edge */
-  content:""; position:absolute; inset:-20% -10% auto -10%; height:820px; z-index:-1;
+  content:""; position:absolute; inset:-130px 0 auto 0; height:900px; z-index:-1;
   background:
     radial-gradient(56% 50% at 8% 2%, #FFD3E5 0%, rgba(255,211,229,0) 62%),
     radial-gradient(54% 52% at 92% -4%, #E6DBFF 0%, rgba(230,219,255,0) 64%),
@@ -121,22 +121,18 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--pink); outline-offs
 .note{margin-top:16px; font-size:14px; color:var(--muted)}
 
 /* ---------- phone ---------- */
-.stage{display:grid; place-items:center; perspective:1400px}
+/* Flat and face-on. The tilted version read as a stock render, and its
+   projected height overran the section, which is what was cutting the bottom
+   bezel off. Nothing here transforms on any axis but Y. */
+.stage{display:grid; place-items:center}
 .phone{
-  position:relative; width:300px; height:614px; border-radius:52px; padding:11px;
-  background:linear-gradient(150deg,#2A2340,#15102A 52%,#241C3C);
-  box-shadow:var(--shadow-lg);
-  transform:rotateY(-15deg) rotateX(5deg) rotate(.4deg);
-  transform-style:preserve-3d;
+  position:relative; width:300px; height:614px; border-radius:48px; padding:10px;
+  background:#1A1433;
+  box-shadow:0 2px 6px rgba(26,20,51,.06), 0 28px 60px -26px rgba(26,20,51,.32);
   animation:float 7s ease-in-out infinite;
 }
-@keyframes float{0%,100%{transform:rotateY(-15deg) rotateX(5deg) translateY(0)}
-                 50%{transform:rotateY(-13deg) rotateX(4deg) translateY(-14px)}}
-.phone::after{ /* glass sheen */
-  content:""; position:absolute; inset:11px; border-radius:42px; pointer-events:none; z-index:6;
-  background:linear-gradient(118deg, rgba(255,255,255,.34) 0%, rgba(255,255,255,0) 34%);
-}
-.screen{position:relative; width:100%; height:100%; border-radius:42px; overflow:hidden; background:#fff}
+@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)}}
+.screen{position:relative; width:100%; height:100%; border-radius:38px; overflow:hidden; background:#fff}
 .notch{position:absolute; top:9px; left:50%; transform:translateX(-50%); width:94px; height:26px;
   border-radius:100px; background:#15102A; z-index:5}
 .status{display:flex; justify-content:space-between; align-items:center; padding:13px 20px 2px;
@@ -271,7 +267,7 @@ footer a:hover{color:var(--pink)}
   .hero-grid{grid-template-columns:1fr; gap:40px}
   .navlinks{display:none}
   .hero{padding-block:36px 56px}
-  .phone{transform:none; animation:none; width:284px; height:582px}
+  .phone{width:284px; height:582px}
   .split{padding:32px 22px}
   section{padding-block:46px}
 }
@@ -283,8 +279,8 @@ footer a:hover{color:var(--pink)}
   .nav-cta{height:40px; padding:0 15px; font-size:14px}
   .brand{font-size:18px}
   .get{padding:40px 18px; border-radius:26px}
-  .phone{width:262px; height:538px; border-radius:46px}
-  .screen,.phone::after{border-radius:38px}
+  .phone{width:262px; height:538px; border-radius:42px}
+  .screen{border-radius:33px}
   .doc{padding-block:32px 56px}
 }
 
