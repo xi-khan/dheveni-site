@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Payment — DheVeni</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/checkout.css">
+</head>
+<body>
+
+<main class="co">
+  <a class="co-brand" href="/">
+    <img class="mark" src="/icons/favicon.svg" width="28" height="28" alt="" decoding="async">
+    DheVeni
+  </a>
+
+  <!-- waiting on the webhook -->
+  <section id="checking" class="state">
+    <div class="ring"></div>
+    <h1>Confirming with your bank…</h1>
+    <p>This usually takes a few seconds.</p>
+  </section>
+
+  <!-- paid -->
+  <section id="ok" class="state" hidden>
+    <div class="disc ok">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#08875A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <h1>Payment received</h1>
+    <p id="ok-body">Your tokens have been added.</p>
+    <div class="bal"><b id="ok-balance">—</b><span>tokens</span></div>
+    <div class="acts">
+      <a class="b b-1" id="ok-open" href="dheveni://tokens">Go to DheVeni</a>
+    </div>
+    <p class="count">Returning you to the app in <b id="count">10</b>s</p>
+  </section>
+
+  <!-- taking longer than the page wants to wait -->
+  <section id="slow" class="state" hidden>
+    <div class="disc wait">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7A5500" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    </div>
+    <h1>Still confirming</h1>
+    <p>Your bank hasn’t finished yet. Nothing is lost — your tokens will appear in the app as soon as it does.</p>
+    <div class="acts">
+      <a class="b b-1" href="dheveni://tokens">Go to DheVeni</a>
+      <button class="b b-ghost" id="keep" type="button">Keep waiting</button>
+    </div>
+  </section>
+
+  <!-- declined, cancelled, or never started -->
+  <section id="bad" class="state" hidden>
+    <div class="disc bad">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D61F69" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </div>
+    <h1 id="bad-title">Payment failed</h1>
+    <p id="bad-body">Your card was not charged.</p>
+    <div class="why" id="why" hidden>
+      <b>What the bank said</b>
+      <p id="why-text"></p>
+    </div>
+    <div class="acts">
+      <button class="b b-1" id="again" type="button">Try again</button>
+      <a class="b b-ghost" href="dheveni://tokens">Cancel and go back</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const FN = 'https://grimmtwlczogccnbgiei.supabase.co/functions/v1';
+const $ = (id) => document.getElementById(id);
+const show = (id) => ['checking','ok','slow','bad'].forEach((s) => { $(s).hidden = s !== id; });
+
+async function post(fn, body) {
+  const r = await fetch(`${FN}/${fn}`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+  });
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok) throw Object.assign(new Error(d.error || 'failed'), { code: d.error });
+  return d;
+}
+
+// The result token comes back from BML in the fragment. Same reasoning as the
+// checkout page: strip it before anything can read it out of the address bar.
+const rt = new URLSearchParams(location.hash.slice(1)).get('rt');
+history.replaceState(null, '', location.pathname);
+
+const TERMINAL_FAIL = ['FAILED', 'DECLINED', 'EXPIRED', 'VOIDED', 'ERROR'];
+
+function fail(state, reason) {
+  const cancelled = state === 'CANCELLED' || state === 'CANCELED';
+  $('bad-title').textContent = cancelled ? 'Payment cancelled' : 'Payment failed';
+  $('bad-body').textContent = cancelled
+    ? 'You stopped before paying. Nothing was charged.'
+    : 'Your card was not charged.';
+  // Only quote the bank when the bank actually said something. An empty box
+  // implying a reason we do not have is worse than no box.
+  if (reason) { $('why-text').textContent = reason; $('why').hidden = false; }
+  else { $('why').hidden = true; }
+  show('bad');
+}
+
+function succeeded(d) {
+  $('ok-body').textContent = d.tokens
+    ? `${d.tokens} tokens added to your account.`
+    : 'Your tokens have been added.';
+  $('ok-balance').textContent = d.balance;
+  show('ok');
+
+  // Ten seconds, then home. The button skips the wait; any interaction stops
+  // the clock, because a countdown that fires while someone is still reading
+  // is a countdown that stole the page.
+  let n = 10;
+  const tick = setInterval(() => {
+    $('count').textContent = --n;
+    if (n <= 0) { clearInterval(tick); location.href = `dheveni://tokens?paid=${d.payment_id}`; }
+  }, 1000);
+  const stop = () => clearInterval(tick);
+  $('ok-open').addEventListener('click', stop);
+  addEventListener('pointerdown', stop, { once: true });
+  addEventListener('keydown', stop, { once: true });
+  $('ok-open').href = `dheveni://tokens?paid=${d.payment_id}`;
+}
+
+let tries = 0;
+async function poll() {
+  try {
+    const d = await post('checkout-status', { result: rt });
+    if (d.state === 'CONFIRMED') return succeeded(d);
+    if (TERMINAL_FAIL.includes(d.state) || d.state === 'CANCELLED') return fail(d.state, d.reason);
+  } catch (e) {
+    if (e.code === 'session_expired' || e.code === 'unknown_payment') {
+      $('bad-title').textContent = 'We lost track of this payment';
+      $('bad-body').textContent = 'Open DheVeni to check your balance. If you were charged, your tokens are there.';
+      $('again').hidden = true;
+      $('why').hidden = true;
+      return show('bad');
+    }
+  }
+  // Still in flight. BML leaves a transaction non-terminal for a while, and a
+  // decline looks exactly like this until their side finishes, so waiting is
+  // the only honest thing to do.
+  if (++tries >= 20) return show('slow');
+  setTimeout(poll, 1500);
+}
+
+$('keep').onclick = () => { tries = 0; show('checking'); poll(); };
+
+$('again').onclick = async () => {
+  show('checking');
+  $('checking').querySelector('h1').textContent = 'Connecting you to BML';
+  $('checking').querySelector('p').textContent = 'Setting up your payment. Do not close this page.';
+  try {
+    const out = await post('checkout-start', { result: rt });
+    location.replace(out.payment_url);
+  } catch (e) {
+    fail('ERROR', e.code === 'too_many_attempts'
+      ? 'Too many attempts in the last hour. Try again later.'
+      : 'We could not reach BML. Nothing has been charged.');
+  }
+};
+
+if (!rt) {
+  $('bad-title').textContent = 'Nothing to show here';
+  $('bad-body').textContent = 'This page is where a payment comes back to. Open DheVeni to buy tokens.';
+  $('again').hidden = true;
+  show('bad');
+} else {
+  poll();
+}
+</script>
+</body>
+</html>

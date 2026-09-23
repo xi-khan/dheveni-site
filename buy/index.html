@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Buy tokens — DheVeni</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/checkout.css">
+</head>
+<body>
+
+<main class="co">
+  <a class="co-brand" href="/">
+    <img class="mark" src="/icons/favicon.svg" width="28" height="28" alt="" decoding="async">
+    DheVeni
+  </a>
+
+  <!-- 1 · spending the handoff -->
+  <section id="loading" class="state">
+    <div class="ring"></div>
+    <h1>Signing you in…</h1>
+    <p>One moment.</p>
+  </section>
+
+  <!-- 2 · the link is no good -->
+  <section id="expired" class="state" hidden>
+    <div class="disc bad">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D61F69" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.01"/></svg>
+    </div>
+    <h1 id="expired-title">This link has expired</h1>
+    <p id="expired-body">Checkout links last five minutes and work once. Open DheVeni and tap Buy tokens again.</p>
+    <div class="acts"><a class="b b-1" href="dheveni://tokens">Open DheVeni</a></div>
+  </section>
+
+  <!-- 3 · confirm and agree -->
+  <section id="ready" hidden>
+    <h1 class="greet" id="greeting">Hello</h1>
+    <p class="greet-s" id="balance-line"></p>
+
+    <div class="packbar" id="packbar">
+      <span class="ic">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6B3FE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.9 2.6 12 8l5.4 2.1-5.4 2.1L9.9 18l-2.1-5.8L2.4 10.1 7.8 8z"/></svg>
+      </span>
+      <span class="t"><b id="pack-name">—</b><span id="pack-rate"></span></span>
+      <button class="chg" id="change" type="button">Change</button>
+    </div>
+
+    <div class="picker" id="picker" hidden></div>
+
+    <div class="total"><span>You pay</span><b id="amount">—</b></div>
+
+    <label class="terms" for="agree">
+      <input type="checkbox" id="agree">
+      <span class="box">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+      </span>
+      <p>I agree to the <a href="/terms" target="_blank" rel="noopener">Terms</a>, including that token purchases are final and non-refundable.</p>
+    </label>
+
+    <button class="b b-1" id="go" type="button" disabled>Agree &amp; Continue</button>
+
+    <p class="secured">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B6480" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      Card handled by Bank of Maldives
+    </p>
+  </section>
+
+  <!-- 4 · real status while checkout-start is in flight -->
+  <section id="connecting" class="state" hidden>
+    <div class="ring"></div>
+    <h1>Connecting you to BML</h1>
+    <p>Setting up your payment. Do not close this page.</p>
+  </section>
+
+  <!-- 5 · could not reach the gateway -->
+  <section id="gateway" class="state" hidden>
+    <div class="disc bad">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D61F69" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17v.01"/><path d="M10.3 3.9 2.4 17.5A2 2 0 0 0 4.1 20.5h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+    </div>
+    <h1>Could not reach BML</h1>
+    <p id="gateway-body">Nothing has been charged. Try again in a moment.</p>
+    <div class="acts">
+      <button class="b b-1" id="retry" type="button">Try again</button>
+      <a class="b b-ghost" href="dheveni://tokens">Back to DheVeni</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const FN = 'https://grimmtwlczogccnbgiei.supabase.co/functions/v1';
+const $ = (id) => document.getElementById(id);
+const show = (id) => ['loading','expired','ready','connecting','gateway']
+  .forEach((s) => { $(s).hidden = s !== id; });
+
+const mvr = (n) => 'MVR ' + Number(n).toFixed(2).replace(/\.00$/, '');
+
+async function post(fn, body) {
+  const r = await fetch(`${FN}/${fn}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw Object.assign(new Error(data.error || 'request_failed'), { code: data.error, status: r.status });
+  return data;
+}
+
+/* Greeting. Maldives runs UTC+5 and the visitor's clock may not, so the hour is
+   computed for Malé rather than wherever the browser thinks it is. */
+function greet(name) {
+  const h = new Date(Date.now() + 5 * 3600e3).getUTCHours();
+  const timely = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  const pool = ['Assalaamu alaikum', 'Marhaba', 'Hello', 'Greetings', timely, timely];
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  return name ? `${pick}, ${name}` : pick;
+}
+
+const state = { session: null, packages: [], chosen: null };
+
+function renderPack() {
+  const p = state.chosen;
+  if (!p) return;
+  $('pack-name').textContent = `${p.tokens} tokens`;
+  $('pack-rate').textContent = `${mvr(p.per_token_mvr)} each`;
+  $('amount').textContent = mvr(p.price_mvr);
+}
+
+function renderPicker() {
+  const best = Math.min(...state.packages.map((p) => Number(p.per_token_mvr)));
+  $('picker').innerHTML = '';
+  state.packages.forEach((p) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'opt';
+    b.setAttribute('aria-pressed', String(p.id === state.chosen?.id));
+    const cheapest = Number(p.per_token_mvr) === best && state.packages.length > 1;
+    b.innerHTML =
+      `<span class="t"><b>${p.tokens} tokens${cheapest ? '<span class="save">BEST RATE</span>' : ''}</b>` +
+      `<span>${mvr(p.per_token_mvr)} each</span></span>` +
+      `<span class="p">${mvr(p.price_mvr)}</span>`;
+    b.onclick = () => {
+      state.chosen = p;
+      renderPack();
+      $('picker').hidden = true;
+      $('packbar').hidden = false;
+    };
+    $('picker').appendChild(b);
+  });
+}
+
+$('change').onclick = () => {
+  renderPicker();
+  $('packbar').hidden = true;
+  $('picker').hidden = false;
+};
+
+$('agree').onchange = (e) => { $('go').disabled = !e.target.checked; };
+
+async function start() {
+  show('connecting');
+  try {
+    const out = await post('checkout-start', {
+      session: state.session,
+      package_id: state.chosen.id,
+    });
+    // Replace rather than push, so Back does not land on a spent checkout.
+    location.replace(out.payment_url);
+  } catch (e) {
+    const known = {
+      payments_unavailable: 'Card payments are not switched on yet. Nothing has been charged.',
+      session_expired: 'Your checkout timed out. Open DheVeni and tap Buy tokens again.',
+      too_many_attempts: 'Too many attempts in the last hour. Try again later.',
+    };
+    $('gateway-body').textContent =
+      (known[e.code] || 'Nothing has been charged. Try again in a moment.');
+    $('retry').hidden = e.code === 'session_expired' || e.code === 'payments_unavailable';
+    show('gateway');
+  }
+}
+
+$('go').onclick = start;
+$('retry').onclick = start;
+
+(async function init() {
+  // The handoff arrives in the fragment and is wiped before anything else runs,
+  // so it never reaches the server logs and is not sitting in the address bar
+  // while someone reads the page.
+  const frag = new URLSearchParams(location.hash.slice(1));
+  const handoff = frag.get('t');
+  const wanted = frag.get('p');
+  history.replaceState(null, '', location.pathname);
+
+  if (!handoff) {
+    $('expired-title').textContent = 'Open this from the app';
+    $('expired-body').textContent = 'Tokens are bought from inside DheVeni. Open the app and tap Buy tokens.';
+    return show('expired');
+  }
+
+  try {
+    const s = await post('checkout-session', { handoff });
+    state.session = s.session;
+    state.packages = s.packages || [];
+    state.chosen = state.packages.find((p) => p.id === (wanted || s.package_id)) || state.packages[0];
+
+    if (!state.chosen) {
+      $('expired-title').textContent = 'Nothing to buy right now';
+      $('expired-body').textContent = 'Token packages are unavailable. Please try again later.';
+      return show('expired');
+    }
+
+    $('greeting').textContent = greet(s.name);
+    $('balance-line').textContent = `You have ${s.balance} token${s.balance === 1 ? '' : 's'}.`;
+    renderPack();
+    show('ready');
+  } catch (e) {
+    if (e.code === 'link_expired') {
+      $('expired-title').textContent = 'This link has expired';
+      $('expired-body').textContent =
+        'Checkout links last five minutes and work once. Open DheVeni and tap Buy tokens again.';
+    } else {
+      $('expired-title').textContent = 'Something went wrong';
+      $('expired-body').textContent = 'We could not open your checkout. Open DheVeni and try again.';
+    }
+    show('expired');
+  }
+})();
+</script>
+</body>
+</html>
