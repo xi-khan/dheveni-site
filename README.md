@@ -3,9 +3,8 @@
 The DheVeni landing page, privacy policy and terms. Static, no build step:
 open `index.html` and it works.
 
-Deployed on Vercel. `vercel.json` turns on `cleanUrls`, so `privacy.html` is
-served at `/privacy` and anyone who hits `/privacy.html` is redirected there.
-The app links to `/privacy` and `/terms`, so those are the real URLs.
+Served by GitHub Pages from the repository root, with `CNAME` pointing at
+`dheveni.com`.
 
 ## Files
 
@@ -15,7 +14,6 @@ The app links to `/privacy` and `/terms`, so those are the real URLs.
 | `privacy.html` | Privacy policy. The App Store listing links here |
 | `terms.html` | Terms of use |
 | `site.css` | One stylesheet for all three |
-| `vercel.json` | Clean URLs, cache headers for the font, a few security headers |
 | `fonts/mv-aammu.woff2` | MV Aammu FK, subset to Thaana and converted to WOFF2 (89KB to 13KB) |
 
 ## The Thaana font

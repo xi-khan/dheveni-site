@@ -23,16 +23,15 @@
   --ink:#07253A;
   --ink-2:#3C6379;
   --surface:#FFFDF9;
-  --sand-rgb:246,239,228;   /* the ground, as channels, so the hero can fade into it */
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --sand:#061A28; --sand-2:#0A2A3C; --surface:#0A2333; --sand-rgb:6,26,40;
+    --sand:#061A28; --sand-2:#0A2A3C; --surface:#0A2333;
     --ink:#EAF4F7; --ink-2:#9FC2D1; --lagoon:#5FD3DD; --coral:#FF5C92;
   }
 }
 :root[data-theme="dark"]{
-  --sand:#061A28; --sand-2:#0A2A3C; --surface:#0A2333; --sand-rgb:6,26,40;
+  --sand:#061A28; --sand-2:#0A2A3C; --surface:#0A2333;
   --ink:#EAF4F7; --ink-2:#9FC2D1; --lagoon:#5FD3DD; --coral:#FF5C92;
 }
 
@@ -56,19 +55,14 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--lagoon); outline-of
     radial-gradient(90% 70% at 88% 22%, rgba(214,31,105,.30) 0%, rgba(214,31,105,0) 60%),
     linear-gradient(168deg,#0E4A63 0%,#07253A 62%,#051A28 100%);
 }
-.hero::after{
-  /* The horizon. A full-width fade from the water into whatever ground sits
-     below, so ocean meets sand with no seam and no edge to clip. The earlier
-     version was a radial blob lit from underneath, which read as a smudge. */
-  content:""; position:absolute; left:0; right:0; bottom:0; height:150px;
-  background:
-    /* the shallows: without this the navy blends to cream through grey,
-       which reads as haze rather than water getting shallower */
-    linear-gradient(to bottom, rgba(63,185,196,0) 0%, rgba(63,185,196,.38) 42%, rgba(63,185,196,.10) 78%, rgba(63,185,196,0) 100%),
-    linear-gradient(to bottom, rgba(var(--sand-rgb),0) 6%, rgba(var(--sand-rgb),.5) 55%, rgba(var(--sand-rgb),1) 97%);
-  pointer-events:none;
+.hero::after{content:""; position:absolute; left:-10%; right:-10%; bottom:-140px; height:280px;
+  background:radial-gradient(60% 100% at 50% 0%, rgba(246,239,228,.95) 0%, rgba(246,239,228,0) 70%);
+  pointer-events:none}
+:root:not([data-theme="light"]) .hero::after{background:radial-gradient(60% 100% at 50% 0%, rgba(6,26,40,.95) 0%, rgba(6,26,40,0) 70%)}
+:root[data-theme="dark"] .hero::after{background:radial-gradient(60% 100% at 50% 0%, rgba(6,26,40,.95) 0%, rgba(6,26,40,0) 70%)}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .hero::after{background:radial-gradient(60% 100% at 50% 0%, rgba(6,26,40,.95) 0%, rgba(6,26,40,0) 70%)}
 }
-
 
 .nav{display:flex; align-items:center; justify-content:space-between; gap:18px; padding-block:22px; flex-wrap:wrap; position:relative; z-index:2}
 .brand{display:flex; align-items:center; gap:11px; font-weight:700; font-size:21px; color:#fff; letter-spacing:-.02em;
@@ -77,7 +71,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--lagoon); outline-of
 .nav a:not(.brand){color:#BFE3EA; text-decoration:none; font-size:15px; font-weight:500}
 .nav a:not(.brand):hover{color:#fff}
 
-.hero-body{position:relative; z-index:2; padding-block:76px 186px; max-width:760px}
+.hero-body{position:relative; z-index:2; padding-block:76px 132px; max-width:760px}
 .kicker{display:inline-flex; align-items:center; gap:9px; background:rgba(255,255,255,.12);
   border:1px solid rgba(255,255,255,.2); color:#CDEDF2; padding:7px 15px; border-radius:100px; font-size:13.5px; font-weight:500}
 .hero h1{font-size:clamp(44px,7.2vw,86px); line-height:.98; font-weight:800; margin:24px 0 0; color:#fff; text-wrap:balance}
